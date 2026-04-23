@@ -1,0 +1,56 @@
+<div class="dialog-header">
+  <div class="dialog-header__icon">
+    <mat-icon>bed</mat-icon>
+  </div>
+  <div class="dialog-header__text">
+    <h2 class="dialog-header__title">
+      {{ data.mode === 'create' ? 'Nuevo Tipo de Habitación' : 'Editar Tipo de Habitación' }}
+    </h2>
+    <p class="dialog-header__sub">
+      {{ data.mode === 'create' ? 'Define el nombre y descripción del tipo' : 'Modifica los datos del tipo' }}
+    </p>
+  </div>
+</div>
+
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" class="form-stack">
+
+    <div class="field-group">
+      <label class="field-label">Nombre del tipo</label>
+      <mat-form-field appearance="outline" class="field-full">
+        <input matInput formControlName="nombre_tipo" placeholder="Ej: Suite Presidencial" />
+        <mat-error>El nombre es requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Descripción <span class="optional">· Opcional</span></label>
+      <mat-form-field appearance="outline" class="field-full">
+        <textarea
+          matInput
+          rows="3"
+          formControlName="descripcion"
+          placeholder="Cama King Size, vista al mar..."
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button type="button" class="btn-cancel" (click)="cancel()">
+    Cancelar
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    class="btn-save"
+    [disabled]="form.invalid"
+    (click)="save()"
+  >
+    <mat-icon>check</mat-icon>
+    {{ data.mode === 'create' ? 'Crear tipo' : 'Guardar cambios' }}
+  </button>
+</mat-dialog-actions>
