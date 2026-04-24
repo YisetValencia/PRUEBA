@@ -80,35 +80,37 @@ export interface TipoHabitacionUpdate {
   id_usuario_edita: string;
 }
 
-/*
-export interface PedidoRead {
-  id_pedido: string;
-  id_usuario: string;
-  nombre: string;
-  descripcion: string | null;
-  estado: string | null;
+export interface HabitacionRead {
+  id_habitacion: string;
+  numero: number;
+  id_tipo: string;
+  tipo: string;
+  precio: number;
+  disponible: boolean;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
   id_usuario_creacion: string;
   id_usuario_edita: string | null;
 }
 
-export interface PedidoCreate {
-  id_usuario: string;
-  nombre: string;
-  descripcion?: string | null;
-  estado?: string | null;
-  id_usuario_creacion: string;
+export interface HabitacionCreate {
+  numero: number;
+  id_tipo: string;
+  tipo: string;
+  precio: number;
+  disponible: boolean;
+  id_usuario_crea: string;
 }
 
-export interface PedidoUpdate {
-  id_usuario?: string;
-  nombre?: string;
-  descripcion?: string | null;
-  estado?: string | null;
+export interface HabitacionUpdate {
+  numero: number;
+  id_tipo: string;
+  tipo: string;
+  precio: number;
+  disponible: boolean;
   id_usuario_edita: string;
 }
-
+/*
 export interface DetallePedidoRead {
   id_detalle_pedido: string;
   id_pedido: string;
