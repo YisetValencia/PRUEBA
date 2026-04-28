@@ -19,11 +19,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/usuarios/usuario-list').then((m) => m.UsuarioListComponent),
       },
-      /*{
+      {
         path: 'habitacion',
         loadComponent: () =>
           import('./features/habitacion/habitacion-list').then((m) => m.HabitacionListComponent),
       },
+      /*
       {
         path: 'reserva',
         loadComponent: () =>
