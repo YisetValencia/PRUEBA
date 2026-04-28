@@ -110,62 +110,45 @@ export interface HabitacionUpdate {
   disponible: boolean;
   id_usuario_edita: string;
 }
-/*
-export interface DetallePedidoRead {
-  id_detalle_pedido: string;
-  id_pedido: string;
-  id_producto: string;
-  nombre: string;
-  descripcion: string | null;
-  estado: string | null;
-}
 
-export interface DetallePedidoCreate {
-  id_pedido: string;
-  id_producto: string;
-  nombre: string;
-  descripcion?: string | null;
-  estado?: string | null;
-}
 
-export interface DetallePedidoUpdate {
-  id_pedido?: string;
-  id_producto?: string;
-  nombre?: string;
-  descripcion?: string | null;
-  estado?: string | null;
-}
-
-export interface PagoRead {
-  id_pago: string;
-  id_pedido: string;
-  nombre: string;
-  descripcion: string | null;
-  estado: string | null;
-  referencia: string;
-  tipo_pago: string;
+export interface ReservaRead {
+  id_reserva: string;
+  id_usuario: string;
+  id_habitacion: string;
+  fecha_entrada: string;
+  fecha_salida: string;
+  estado_reserva: string;
+  numero_de_personas: number;
+  noches: number;
+  costo_total: number;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
-  id_usuario_creacion: string;
+  id_usuario_crea: string;
   id_usuario_edita: string | null;
+  habitacion?: {
+    id_habitacion: string;
+    nombre: string;
+    tipo: string;
+    precio: number;
+  };
 }
 
-export interface PagoCreate {
-  id_pedido: string;
-  nombre: string;
-  descripcion?: string | null;
-  estado?: string | null;
-  referencia: string;
-  tipo_pago: string;
-  id_usuario_creacion: string;
+export interface ReservaCreate {
+  id_habitacion: string;
+  fecha_entrada: string;
+  fecha_salida: string;
+  numero_de_personas: number;
+  id_usuario: string;
+  id_usuario_crea: string;
 }
 
-export interface PagoUpdate {
-  id_pedido?: string;
-  nombre?: string;
-  descripcion?: string | null;
-  estado?: string | null;
-  referencia?: string;
-  tipo_pago?: string;
+export interface ReservaUpdate {
+  id_habitacion?: string;
+  fecha_entrada?: string;
+  fecha_salida?: string;
+  numero_de_personas?: number;
+  estado_reserva?: string;
   id_usuario_edita: string;
-}*/
+}
+
