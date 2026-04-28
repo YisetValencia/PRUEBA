@@ -24,12 +24,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/habitacion/habitacion-list').then((m) => m.HabitacionListComponent),
       },
-      /*
+      
       {
         path: 'reserva',
         loadComponent: () =>
           import('./features/reserva/reserva-list').then((m) => m.ReservaListComponent),
       },
+      /*
       {
         path: 'reserva_servicios',
         loadComponent: () =>

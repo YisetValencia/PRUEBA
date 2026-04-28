@@ -13,7 +13,7 @@ import {
   providedIn: 'root'
 })
 export class ReservaService {
-  private readonly base = `${environment.apiUrl}/reservas`;
+  private readonly base = `${environment.apiUrl}/reserva`;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -34,8 +34,8 @@ export class ReservaService {
   }
 
   update(id: string, body: ReservaUpdate): Observable<ReservaRead> {
-    return this.http.put<ReservaRead>(`${this.base}/${id}`, body);
-  }
+  return this.http.patch<ReservaRead>(`${this.base}/${id}`, body);
+}
 
   delete(id: string): Observable<void> {
     return this.http

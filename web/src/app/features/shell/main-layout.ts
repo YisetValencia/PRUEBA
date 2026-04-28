@@ -67,6 +67,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     { path: 'servicios_adicionales', label: 'Servicios', icon: 'add_business' },
     { path: 'tipo_habitacion', label: 'TipoHabitacion', icon: 'bed' },
     { path: 'habitacion', label: 'Habitacion', icon: 'bed' },
+    { path: 'reserva', label: 'Reservas', icon: 'event' },
   ];
 
   ngOnInit(): void {
