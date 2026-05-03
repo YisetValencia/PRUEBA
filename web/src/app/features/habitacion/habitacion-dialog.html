@@ -1,0 +1,73 @@
+<div class="dialog-header">
+  <div class="dialog-header__icon">
+    <mat-icon>door_front</mat-icon>
+  </div>
+  <div class="dialog-header__text">
+    <h2 class="dialog-header__title">
+      {{ data.mode === 'create' ? 'Nueva Habitación' : 'Editar Habitación' }}
+    </h2>
+    <p class="dialog-header__sub">
+      {{ data.mode === 'create' ? 'Completa los datos de la habitación' : 'Modifica los datos de la habitación' }}
+    </p>
+  </div>
+</div>
+
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" class="form-grid">
+
+    <div class="field-group">
+      <label class="field-label">Número</label>
+      <mat-form-field appearance="outline" class="field-full">
+        <input matInput type="number" formControlName="numero" placeholder="Ej: 101" min="1" />
+        <mat-error>El número es requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Tipo de habitación</label>
+      <mat-form-field appearance="outline" class="field-full">
+        <mat-select formControlName="id_tipo" placeholder="Selecciona un tipo">
+          @for (t of tipo_habitacion(); track t.id_tipo) {
+            <mat-option [value]="t.id_tipo">{{ t.nombre_tipo }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>Selecciona un tipo</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Precio por noche</label>
+      <mat-form-field appearance="outline" class="field-full">
+        <span matTextPrefix class="prefix">$&nbsp;</span>
+        <input matInput type="number" formControlName="precio" placeholder="0" min="0" step="1000" />
+        <mat-error>Ingresa un precio válido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="field-group field-toggle">
+      <label class="field-label">Disponibilidad</label>
+      <div class="toggle-wrap">
+        <mat-slide-toggle formControlName="disponible" color="primary">
+          {{ form.get('disponible')?.value ? 'Disponible' : 'No disponible' }}
+        </mat-slide-toggle>
+      </div>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button type="button" class="btn-cancel" (click)="cancel()">
+    Cancelar
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    class="btn-save"
+    (click)="save()"
+  >
+    <mat-icon>check</mat-icon>
+    {{ data.mode === 'create' ? 'Crear habitación' : 'Guardar cambios' }}
+  </button>
+</mat-dialog-actions>

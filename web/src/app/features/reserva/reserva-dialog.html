@@ -1,0 +1,136 @@
+<div class="dialog-header">
+  <div class="dialog-header__icon">
+    <mat-icon>event_available</mat-icon>
+  </div>
+  <div class="dialog-header__text">
+    <h2 class="dialog-header__title">
+      {{ data.mode === 'create' ? 'Nueva Reserva' : 'Editar Reserva' }}
+    </h2>
+    <p class="dialog-header__sub">
+      {{ data.mode === 'create' ? 'Completa los datos para crear la reserva' : 'Modifica los datos de la reserva' }}
+    </p>
+  </div>
+</div>
+
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" class="form-stack">
+
+    <!-- ── Cliente ── -->
+    <div class="section-title">Cliente</div>
+
+    <div class="field-group">
+      <label class="field-label">Buscar cliente</label>
+      <mat-form-field appearance="outline" class="field-full">
+        <mat-icon matIconPrefix style="color:#94a3b8">person_search</mat-icon>
+        <input
+          matInput
+          [formControl]="clienteSearch"
+          [matAutocomplete]="autoCliente"
+          placeholder="Nombre, apellidos o usuario..."
+        />
+        <mat-autocomplete
+          #autoCliente="matAutocomplete"
+          [displayWith]="displayCliente"
+          (optionSelected)="onClienteSelected($event)"
+        >
+          @for (u of clientesFiltrados(); track u.id_usuario) {
+            <mat-option [value]="u">
+              {{ u.nombre }} {{ u.apellidos }}
+              <span class="option-sub">· {{ u.nombre_usuario }}</span>
+            </mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <!-- ── Habitación ── -->
+    <div class="section-title">Habitación</div>
+
+    <div class="field-group">
+      <label class="field-label">Habitación disponible</label>
+      <mat-form-field appearance="outline" class="field-full">
+        <mat-icon matIconPrefix style="color:#94a3b8">door_front</mat-icon>
+        <mat-select formControlName="id_habitacion" placeholder="Selecciona una habitación...">
+          @for (h of habitaciones(); track h.id_habitacion) {
+            <mat-option [value]="h.id_habitacion">
+              N° {{ h.numero }} — {{ h.tipo }}
+              <span class="option-sub">· {{ h.precio | currency:'COP':'symbol':'1.0-0' }}/noche</span>
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error>La habitación es requerida</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- ── Estadía ── -->
+    <div class="section-title">Estadía</div>
+
+    <div class="form-grid">
+      <div class="field-group">
+        <label class="field-label">Fecha de entrada</label>
+        <mat-form-field appearance="outline" class="field-full">
+          <input matInput type="date" formControlName="fecha_entrada" />
+          <mat-error>Requerida</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Fecha de salida</label>
+        <mat-form-field appearance="outline" class="field-full">
+          <input matInput type="date" formControlName="fecha_salida" />
+          <mat-error>Requerida</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">N° de personas</label>
+        <mat-form-field appearance="outline" class="field-full">
+          <input matInput type="number" formControlName="numero_de_personas" min="1" placeholder="1" />
+          <mat-error>Requerido</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- ── Servicios adicionales ── -->
+    <div class="section-title">
+      Servicios adicionales
+      <span class="optional">· Opcional</span>
+    </div>
+
+    <div class="servicios-list">
+      @for (s of servicios(); track s.id_servicio) {
+        <div class="servicio-item">
+          <div class="servicio-item__info">
+            <span class="servicio-item__nombre">{{ s.nombre_servicio }}</span>
+            <span class="servicio-item__precio">
+              {{ s.precio | currency:'COP':'symbol':'1.0-0' }}
+            </span>
+          </div>
+          <div class="servicio-item__qty">
+            <button mat-icon-button type="button" class="qty-btn"
+              (click)="decrementarServicio(s.id_servicio)"
+              [disabled]="getCantidad(s.id_servicio) === 0">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <span class="qty-value">{{ getCantidad(s.id_servicio) }}</span>
+            <button mat-icon-button type="button" class="qty-btn"
+              (click)="incrementarServicio(s.id_servicio)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button type="button" class="btn-cancel" (click)="cancel()">
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" type="button" class="btn-save" (click)="save()">
+    <mat-icon>check</mat-icon>
+    {{ data.mode === 'create' ? 'Crear reserva' : 'Guardar cambios' }}
+  </button>
+</mat-dialog-actions>

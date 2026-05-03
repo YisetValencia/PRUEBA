@@ -1,0 +1,88 @@
+<div class="login-page">
+  <mat-card class="login-card">
+
+    <mat-card-header>
+      <mat-card-title>Iniciar sesión</mat-card-title>
+      <mat-card-subtitle>
+        Acceso de demostración — solo debe existir el usuario en el API.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      @if (loading()) {
+        <div class="center">
+          <mat-spinner diameter="40" />
+        </div>
+
+      } @else if (usuarios().length === 0) {
+
+        <p class="hint">
+          No hay usuarios en la base. Crea el primero para comenzar.
+        </p>
+
+        <form [formGroup]="firstUserForm" (ngSubmit)="crearPrimero()" class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Apellidos</mat-label>
+            <input matInput formControlName="apellidos" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tipo de usuario</mat-label>
+            <input matInput formControlName="tipo_usuario" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput formControlName="nombre_usuario" autocomplete="username" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" formControlName="clave" autocomplete="new-password" />
+          </mat-form-field>
+
+          <div class="span-2 actions">
+            <button mat-flat-button color="primary" type="submit" class="submit-btn">
+              Crear y entrar
+            </button>
+          </div>
+        </form>
+
+      } @else {
+
+        <form [formGroup]="loginForm" (ngSubmit)="ingresar()" class="login-form">
+          <mat-form-field appearance="outline" class="full" hideRequiredMarker>
+            <mat-label>Usuario</mat-label>
+            <mat-icon matIconPrefix style="color:#94a3b8;margin-right:4px">person_outline</mat-icon>
+            <input matInput formControlName="nombre_usuario" autocomplete="username" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full" hideRequiredMarker>
+            <mat-label>Contraseña</mat-label>
+            <mat-icon matIconPrefix style="color:#94a3b8;margin-right:4px">lock_outline</mat-icon>
+            <input matInput type="password" formControlName="clave" autocomplete="current-password" />
+            <mat-hint>Solo visual — no se valida contra el backend</mat-hint>
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" type="submit" class="submit-btn">
+            Ingresar
+          </button>
+        </form>
+
+      }
+
+    </mat-card-content>
+
+  </mat-card>
+</div>

@@ -1,0 +1,401 @@
+@use '@angular/material' as mat;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tema Material — Azul Cobalto + Cyan (en sintonía con main-layout)
+// ─────────────────────────────────────────────────────────────────────────────
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$blue-palette,
+      tertiary: mat.$cyan-palette,
+    ),
+    typography: 'DM Sans',
+    density: 0,
+  ));
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Google Fonts — Sora + DM Sans
+// ─────────────────────────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Design tokens globales — Azul Cobalto + Blanco Porcelana
+// Usados tanto en styles.scss como en main-layout.scss y componentes
+// ─────────────────────────────────────────────────────────────────────────────
+:root {
+  // Paleta azul
+  --blue-900:  #0a1f44;
+  --blue-800:  #0d2b5e;
+  --blue-700:  #1040a0;
+  --blue-600:  #1a55cc;
+  --blue-500:  #2563eb;
+  --blue-400:  #3b82f6;
+  --blue-300:  #93c5fd;
+  --blue-200:  #bfdbfe;
+  --blue-100:  #dbeafe;
+  --blue-50:   #eff6ff;
+
+  // Neutros fríos
+  --white:     #ffffff;
+  --snow:      #f8faff;
+  --mist:      #f0f4fb;
+  --fog:       #e2e8f5;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-700: #334155;
+  --slate-900: #0f172a;
+
+  // Semánticos
+  --color-primary:        var(--blue-600);
+  --color-primary-dark:   var(--blue-800);
+  --color-primary-light:  var(--blue-400);
+  --color-accent:         #38bdf8;
+  --color-surface:        var(--white);
+  --color-surface-low:    var(--snow);
+  --color-surface-mid:    var(--mist);
+  --color-on-primary:     var(--white);
+  --color-on-surface:     var(--slate-900);
+  --color-on-surface-sub: var(--slate-500);
+  --color-border:         var(--fog);
+  --color-border-strong:  var(--slate-300);
+
+  // Layout
+  --nav-expanded:  268px;
+  --nav-collapsed: 72px;
+  --nav-ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-duration:  300ms;
+  --topbar-h:      62px;
+  --radius-sm:     8px;
+  --radius-md:     12px;
+  --radius-lg:     16px;
+  --shadow-sm:     0 1px 4px rgba(10, 31, 68, 0.08);
+  --shadow-md:     0 4px 16px rgba(10, 31, 68, 0.12);
+  --shadow-lg:     0 8px 32px rgba(10, 31, 68, 0.16);
+  --shadow-nav:    6px 0 40px rgba(26, 85, 204, 0.10);
+
+  // Tipografía
+  --font-display: 'Sora', 'Segoe UI', sans-serif;
+  --font-body:    'DM Sans', 'Helvetica Neue', sans-serif;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Base
+// ─────────────────────────────────────────────────────────────────────────────
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color-scheme: light;
+  margin: 0;
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  color: var(--mat-sys-on-surface);
+
+  // Fondo porcelana con halos azules sutiles — coherente con el snow/mist del layout
+  background:
+    radial-gradient(ellipse 900px 500px at 5% 0%,  rgba(37, 99, 235, 0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 700px 400px at 95% 10%, rgba(56, 189, 248, 0.07) 0%, transparent 60%),
+    #f8faff;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tarjetas
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-card {
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f5 !important;   // --fog del layout
+  box-shadow:
+    0 1px 4px  rgba(10, 31, 68, 0.06),
+    0 6px 20px rgba(10, 31, 68, 0.08) !important;
+  backdrop-filter: blur(4px);
+  transition: box-shadow 0.22s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow:
+      0 2px 6px  rgba(10, 31, 68, 0.07),
+      0 10px 28px rgba(26, 85, 204, 0.12) !important;
+    transform: translateY(-2px);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inputs / Text fields
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-text-field-wrapper {
+  border-radius: 10px !important;
+}
+
+// Borde con tono azul al foco
+.mat-mdc-form-field.mat-focused {
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: #2563eb !important;  // --blue-500
+    border-width: 2px !important;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Botones — raised (primarios)
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-raised-button {
+  border-radius: 10px !important;
+  padding: 10px 22px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  box-shadow:
+    0 2px 8px  rgba(26, 85, 204, 0.20),
+    0 4px 14px rgba(26, 85, 204, 0.15) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 4px 12px rgba(26, 85, 204, 0.28),
+      0 8px 22px rgba(26, 85, 204, 0.20) !important;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Botones outlined — alineados con collapse-btn del layout
+.mat-mdc-outlined-button {
+  border-radius: 10px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500 !important;
+  border-color: #cbd5e1 !important;   // --slate-300
+  transition: background-color 0.18s ease, border-color 0.18s ease !important;
+
+  &:hover {
+    background-color: #eff6ff !important;  // --blue-50
+    border-color: #93c5fd !important;      // --blue-300
+  }
+}
+
+// Botones text / icon
+.mat-mdc-icon-button,
+.mat-mdc-button {
+  border-radius: 8px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  transition: background-color 0.16s ease !important;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Chips
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-chip {
+  border-radius: 8px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.8rem !important;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tablas
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-table {
+  background: #ffffff !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  border: 1px solid #e2e8f5;
+  box-shadow: 0 1px 4px rgba(10, 31, 68, 0.06);
+
+  .mat-mdc-header-row {
+    background: #eff6ff !important;   // --blue-50
+
+    .mat-mdc-header-cell {
+      font-family: 'DM Sans', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 0.78rem !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase !important;
+      color: #1a55cc !important;     // --blue-600
+      border-bottom: 2px solid #bfdbfe !important;  // --blue-200
+    }
+  }
+
+  .mat-mdc-row {
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: #f8faff !important;
+    }
+
+    .mat-mdc-cell {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 0.875rem !important;
+      color: #334155;   // --slate-700
+      border-bottom-color: #e2e8f5 !important;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Diálogos
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 18px !important;
+  border: 1px solid #e2e8f5;
+  box-shadow:
+    0 8px 32px rgba(10, 31, 68, 0.14),
+    0 2px 8px  rgba(10, 31, 68, 0.08) !important;
+}
+
+.mat-mdc-dialog-title {
+  font-family: 'Sora', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  letter-spacing: -0.02em !important;
+  color: #0d2b5e !important;   // --blue-800
+}
+
+.dialog-body {
+  padding-top: 12px;
+}
+
+.dialog-body .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+}
+
+.dialog-body .grid .span-2 {
+  grid-column: 1 / -1;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Menús desplegables / Select panels
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-select-panel,
+.mat-mdc-menu-panel {
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f5 !important;
+  box-shadow: 0 8px 24px rgba(10, 31, 68, 0.12) !important;
+
+  .mat-mdc-option {
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.875rem !important;
+
+    &.mdc-list-item--selected,
+    &:hover {
+      background-color: #eff6ff !important;
+      color: #2563eb !important;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Snackbars / Toasts
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  border-radius: 12px !important;
+  background: #0d2b5e !important;   // --blue-800
+  box-shadow: 0 6px 20px rgba(10, 31, 68, 0.25) !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Top Bar — mat-toolbar (debe ir global para romper encapsulación de Material)
+// ─────────────────────────────────────────────────────────────────────────────
+
+// El mat-toolbar ignora background desde component styles — se fuerza aquí
+.top-bar.mat-toolbar,
+mat-toolbar.top-bar {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  min-height: 62px !important;
+  border-bottom: 1px solid #e2e8f5 !important;
+  box-shadow: 0 1px 12px rgba(10, 31, 68, 0.07) !important;
+  padding-inline: 20px !important;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Mat Sidenav Container — resetear fondo y bordes que Material pone por defecto
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-drawer-container {
+  background: #0d2b5e !important;
+  padding-top: 0 !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+.mat-drawer-content {
+  overflow: auto !important;
+}
+
+.mat-drawer {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  // NO forzar width ni height — Material los calcula del [style.width] del HTML
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tooltips
+// ─────────────────────────────────────────────────────────────────────────────
+.mat-mdc-tooltip .mdc-tooltip__surface {
+  border-radius: 8px !important;
+  background: #0a1f44 !important;   // --blue-900
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.78rem !important;
+  padding: 6px 12px !important;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scrollbar global (igual que main-layout)
+// ─────────────────────────────────────────────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f4fb;   // --mist
+}
+
+::-webkit-scrollbar-thumb {
+  background: #93c5fd;   // --blue-300
+  border-radius: 999px;
+
+  &:hover {
+    background: #3b82f6;  // --blue-400
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// View Transitions (page navigation)
+// ─────────────────────────────────────────────────────────────────────────────
+@supports (view-transition-name: none) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.28s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  ::view-transition-old(root) {
+    animation-name: fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: fade-in;
+  }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

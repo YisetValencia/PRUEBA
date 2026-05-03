@@ -1,0 +1,156 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Habitaciones list — mismo sistema de diseño
+// ─────────────────────────────────────────────────────────────────────────────
+
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    font-family: 'Sora', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: 1.45rem;
+    letter-spacing: -0.03em;
+    color: #0d2b5e;
+    position: relative;
+    padding-bottom: 6px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 36px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #2563eb, #38bdf8);
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 48px;
+}
+
+.table-wrap {
+  overflow: auto;
+  border-radius: 14px;
+  border: 1px solid #e2e8f5;
+  box-shadow:
+    0 1px 4px  rgba(10, 31, 68, 0.06),
+    0 4px 16px rgba(10, 31, 68, 0.08);
+
+  &::-webkit-scrollbar { height: 5px; width: 5px; }
+  &::-webkit-scrollbar-track { background: #f0f4fb; }
+  &::-webkit-scrollbar-thumb { background: #93c5fd; border-radius: 999px; }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Número badge
+// ─────────────────────────────────────────────────────────────────────────────
+.numero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #1a55cc;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Estado badge — disponible / ocupada
+// ─────────────────────────────────────────────────────────────────────────────
+.estado-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &.disponible {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+
+    .estado-dot { background: #22c55e; }
+  }
+
+  &.ocupada {
+    background: #fff7ed;
+    color: #ea580c;
+    border: 1px solid #fed7aa;
+
+    .estado-dot { background: #f97316; }
+  }
+}
+
+.estado-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Acciones
+// ─────────────────────────────────────────────────────────────────────────────
+.actions {
+  white-space: nowrap;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+
+  .mat-mdc-icon-button {
+    color: #94a3b8 !important;
+    transition: color 0.18s ease, background-color 0.18s ease !important;
+
+    &:hover { color: #2563eb !important; background-color: #eff6ff !important; }
+    &.action-delete:hover { color: #ef4444 !important; background-color: #fef2f2 !important; }
+  }
+}
+
+mat-paginator {
+  border-top: 1px solid #e2e8f5;
+  background: #ffffff !important;
+  border-radius: 0 0 14px 14px;
+}
+
+// Celdas alineadas correctamente
+.mat-mdc-row,
+.mat-mdc-header-row {
+  display: table-row !important;
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  vertical-align: middle !important;
+  padding: 0 16px !important;
+  border-bottom: 1px solid #e2e8f5 !important;
+}
+
+.mat-mdc-header-cell {
+  height: 48px !important;
+}
+
+.mat-mdc-cell {
+  height: 52px !important;
+}

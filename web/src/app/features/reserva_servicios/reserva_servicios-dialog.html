@@ -1,0 +1,62 @@
+<div class="dialog-header">
+  <div class="dialog-header__icon">
+    <mat-icon>room_service</mat-icon>
+  </div>
+  <div class="dialog-header__text">
+    <h2 class="dialog-header__title">
+      {{ data.mode === 'create' ? 'Agregar Servicio a Reserva' : 'Editar Servicio de Reserva' }}
+    </h2>
+    <p class="dialog-header__sub">
+      {{ data.mode === 'create' ? 'Selecciona el servicio y la cantidad' : 'Modifica los datos del servicio' }}
+    </p>
+  </div>
+</div>
+
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" class="form-stack">
+
+    <div class="field-group">
+      <label class="field-label">Servicio</label>
+      <mat-form-field appearance="outline" class="field-full">
+        <mat-select formControlName="id_servicios" placeholder="Selecciona un servicio">
+          @for (s of servicios(); track s.id_servicio) {
+            <mat-option [value]="s.id_servicio">{{ s.nombre_servicio }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>El servicio es requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Cantidad</label>
+      <mat-form-field appearance="outline" class="field-full">
+        <input
+          matInput
+          type="number"
+          formControlName="cantidad"
+          placeholder="Ej: 2"
+          min="1"
+        />
+        <mat-error>La cantidad debe ser mayor a 0</mat-error>
+      </mat-form-field>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button type="button" class="btn-cancel" (click)="cancel()">
+    Cancelar
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    class="btn-save"
+    [disabled]="form.invalid"
+    (click)="save()"
+  >
+    <mat-icon>check</mat-icon>
+    {{ data.mode === 'create' ? 'Agregar servicio' : 'Guardar cambios' }}
+  </button>
+</mat-dialog-actions>
